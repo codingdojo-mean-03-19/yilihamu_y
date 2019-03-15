@@ -1,1 +1,82 @@
-// 1 hour
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hunting github</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(() => {
+          $('#search-button').click(() => {
+            const input = $('#user-name').first();
+            const name = input.val().trim();
+    
+            $('.user-content').first().hide();
+    
+            input.val('');
+    
+            if (name) {
+              return search(name);
+            }
+    
+            displayError('You must provide a username');
+          });
+        });
+    
+        function search(name) {
+          $('#error-section').hide();
+    
+          new Promise((resolve, reject) => {
+            $.get({
+              url: `https://api.github.com/users/${name}`,
+              success: resolve,
+              error: reject,
+            });
+          })
+            .then(createCard)
+            .catch(error => {
+              displayError(`Make sure the user you are requesting exists: ${name}`);
+            });
+        }
+    
+        function createCard(user) {
+    
+          const element = `
+            <div>
+              <img src="${user.avatar_url}" alt="avatar">
+              <p>Login: ${user.login}</p>
+              <p>Name: ${user.name}</p>
+              <p>Repos: ${user.public_repos}</p>
+              <p>Gists: ${user.public_gists}</p>
+            </div>
+          `;
+    
+          $('.user-content').first().empty().show().append(element);
+        }
+    
+        function displayError(message) {
+          $('#error-section')
+            .empty()
+            .show()
+            .append(`<p>${message}</p>`);
+        }
+      </script>
+</head>
+<body>
+    <main>
+        <h3>Github username hunting</h3>
+        <section id='error-section' class='error' hidden='true'>
+            <!-- error message comes here -->
+        </section>
+        <section class="user-input">
+            <input type="text" id="user-name" placeholder="username">
+            <button id='search-button'>Search</button>
+        </section>
+        <section class="user-content">
+            <!-- user info comes here -->
+        </section>
+    </main>
+    
+</body>
+</html>
