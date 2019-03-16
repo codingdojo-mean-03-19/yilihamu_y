@@ -1,1 +1,34 @@
-<!-- 2 hours -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trivia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.get("https://opentdb.com/api.php?amount=4&category=10&type=multiple", book);
+            function book(data) {
+                for(let book in data.results){
+                    let questions = data.results[book].question;
+                    let answers = [...data.results[book].incorrect_answers, data.results[book].correct_answer];
+                    $('.book_question').append('<li></li>', questions);
+                    for(let i=0; i<answers.length; i++){
+                        $('.book_question').append('<ol></ol>', answers[i]);                      
+                    }            
+                }
+            }
+        })
+    </script>
+</head>
+<body>
+    <div class="container">
+        <a href="/mean-assignment-landscape/01-javascript/02-js-fundamentals/04-trivia.html">Continue with new question</a>   
+        <h1>Trivia Night</h1>
+        <h3>Book questions</h3>
+        <ol class="book_question"></ol>
+    </div>    
+</body>
+</html>
