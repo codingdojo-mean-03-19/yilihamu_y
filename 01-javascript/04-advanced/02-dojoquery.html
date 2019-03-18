@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dojo Query</title>
+    <script>
+        const $Dojo = function(id) {
+            return (function($dojo){
+            $dojo.myId = document.getElementById(id);
+            $dojo.click = function (callback) {
+            this.myId.addEventListener("click", callback);
+            };
+
+            $dojo.hover = function (hoverin, hoverout) {
+            this.myId.addEventListener("mouseover", hoverin);
+            this.myId.addEventListener("mouseout", hoverout);
+            };
+
+            return $dojo;
+            })({});
+        };
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
