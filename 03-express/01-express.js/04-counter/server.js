@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-var session = require('express-session');
+const session = require('express-session');
 const path = require('path');
 
 const port = process.env.PORT || 8000;
@@ -35,7 +35,7 @@ app.post('/add', function(request, response){
 
     if(!request.session.count){
         request.session.count = 1;
-        
+
     } else{
         request.session.count++;
     }
