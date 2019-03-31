@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Servey form</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script>
+        $(document).ready(function (){
+            const socket = io.connect();
+            $('#form').submit(function(e) {
+        		e.preventDefault();
+				socket.emit("posting_form", {
+				  	name: $('#name').val(),
+                    location: $('#location').val(),
+                    language: $('#language').val(),
+                    comment: $('#comment').val()
+                });
+			});
+			socket.on('updated_message', function (data){
+			    $('#message').html("You emitted the following information to the server: " + JSON.stringify(data.response));
+			});
+			socket.on('random_number', function (data){
+			   $('#number').html("Your lucky number emitted by the server is : " + JSON.stringify(data.response));
+			});
+        });
+    </script>
+
+</head>
+<body>  
+    <div class="container">
+        <div id="message"></div>
+        <div id="number"></div>
+        <form id="form">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" class="form-control" name="name" id="name">
+            </div>
+            <div class="form-group">
+                <label for="location">Dojo Location</label>
+                <select class="form-control" name="location" id="location">
+                    <option value="Mountain view">Mountain view</option>
+                    <option value="Seattle">Seattle</option>
+                    <option value="New York city">New York city</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="language">Favorite Language</label>
+                <select class="form-control" name="language" id="language">
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="Python">Python</option>
+                    <option value="Java">Java</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="comment">Comment (optional)</label>
+                <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
