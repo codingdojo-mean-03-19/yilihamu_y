@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SW API</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script>
+           $(document).ready(function(){
+            $('#peopleBtn').click(function(){
+                
+                $.get('/people/0', function(data){
+                    $('.inner_cont').empty();
+                    console.log("got the data", data.results);
+                    for(let d of data.results) {
+                        $('.inner_cont').append(`
+                        <p>${d.name}</p>
+                        `);
+                        console.log("got the data from loop", d.name);
+                    }
+                }, 'json');
+            });
+
+            $('#planetsBtn').click(function(){
+               
+                $.get('/planet/0', function(data){
+                    $('.inner_cont').empty();
+                
+                    console.log("got the data", data.results);
+                    for(let d of data.results) {
+                        $('.inner_cont').append(`
+                            <p>${d.name}</p>
+                        `);
+                        console.log("got the data from loop", d.name);
+                    }
+                }, 'json');
+            });
+            $('#next').click(function() {
+                console.log('clicking next');
+                $.get('/next', (data) => { 
+                    display(data); 
+                }, 'json');
+            });
+            $('#all').click(function(){
+                console.log('clicking all');
+                $.get('/all', (data) => {
+                    display(data);
+                }, 'json');
+            });
+            $('#prev').click(function(){
+                console.log('clicking prev');
+                $.get('/prev', (data) => {
+                    display(data);
+                }, 'json');
+            });
+            
+            function display(info){
+            
+            $('#all').removeAttr('hidden');
+            if(info.next != null) {
+                $('#next').removeAttr('hidden');
+            } else {
+                $('#next').attr('hidden', 'hidden')
+            }
+            if(info.previous != null) {
+                $('#prev').removeAttr('hidden');
+            } else {
+                $('#prev').attr('hidden', 'hidden')
+            }
+            let build = '';
+            for(let i = 0; i < info.results.length; i++){
+                build += `<p> ${info.results[i].name} </p>`;
+            }
+                $('.inner_cont').html(build);
+            }
+
+            $('#all').click(function() {
+                add();
+            });
+            function add(){
+                $.get('/next', (data) => {
+                    let build = '';
+                    for(let i = 0; i < data.results.length; i++){
+                        build += `<p> ${data.results[i].name} </p>`
+                    }
+                    console.log(data);
+                    $('#content').append(build);
+                    
+                }, 'json');
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        
+            <div class="text-center">
+
+                <h1>Star Wars Wiki</h1>
+                <p>What would you like to know more about?</p>
+            
+                <button class="btn btn-primary" id="peopleBtn">People</button>
+    
+                <button class="btn btn-primary" id="planetsBtn">Planets</button>
+                
+                <div class="border">
+                    <div class="inner_cont">
+
+                    
+                    </div>
+                </div>
+                <div id="content">
+                    
+                </div>
+                <ul>
+                    <li><a href="#" id="prev" hidden>Previuos 10</a></li>
+                    <li><a href="#" id="all" >Get all</a></li>
+                    <li><a href="#" id="next" >Next 10</a></li>
+                </ul>
+            </div>
+       
+    </div>
+</body>
+</html>
