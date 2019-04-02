@@ -1,0 +1,41 @@
+1. use test //database name is 'test'
+
+2. db.createCollection("students")
+
+4. db.students.insert({name: "Joey", home_state: "VA", lucky_number: 11, birthday: {month: 11, day: 11, year: 1991}})
+   db.students.insert({name: "Jenny", home_state: "WA", lucky_number: 7, birthday: {month: 07, day: 05, year: 1992}})
+   db.students.insert({name: "Bob", home_state: "CA", lucky_number: 1, birthday: {month: 12, day: 01, year: 1990}})
+   db.students.insert({name: "Taylor", home_state: "NYC", lucky_number: 6, birthday: {month: 12, day: 06, year: 1989}})
+   db.students.insert({name: "Tom", home_state: "FL", lucky_number: 9, birthday: {month: 09, day: 09, year: 1989}})
+
+5. db.students.find().pretty()
+
+6. db.students.find({$or: [{home_state:"CA"}, {home_state:"WA"}]}).pretty()
+
+7. db.students.find({lucky_number:{$gt:3}}).pretty()
+   db.students.find({lucky_number:{$lte:10}}).pretty()
+   db.students.find({$and:[{lucky_number:{$lte:9}}, {lucky_number:{$gte:1}}]}).pretty()
+
+8. db.students.update({},{$set: {"interests":['coding', 'brunch', 'MongoDB']}},{multi:true}) 
+
+9. db.students.update({name: "Taylor"},{$push: {interests:{$each:['singing', 'dancing']}}})
+
+10. db.students.update({name: "Joey"},{$push: {interests: "taxes"}})
+
+11. db.students.update({name: "Joey"},{$pull: {interests: "taxes"}})
+
+12. db.students.remove({home_state:"CA"})
+
+13. db.students.remove({name:"Joey"})
+
+14. db.students.remove({lucky_number: {$gt:5}}, {justOne:true})
+
+15. db.students.update({},{$set: {"number_of_belts":0}},{multi:true})
+
+16. db.students.update({home_state: "FL"},{$inc: {number_of_belts: 1}},{multi:true})
+
+17. db.students.update({}, {$rename: {"number_of_belts":"belts_earned"}}, {multi:true})
+
+18. db.students.update({}, {$unset:{lucky_number:""}},{multi:true})
+
+19. db.students.update({}, {$currentDate:{updated_on:true}},{multi:true})
