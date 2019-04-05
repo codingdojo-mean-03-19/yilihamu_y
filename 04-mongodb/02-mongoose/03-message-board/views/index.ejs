@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Message Board</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="jumbotron container">
+        <h1>Message Board</h1>
+        <form action="/message" method="post">
+            Name: <input type="text" name="name" class="form-control">
+            Message: <textarea name="message" class="form-control"></textarea>
+            <input type="submit" value="Post message" class="btn btn-primary">
+        </form>
+        <hr>
+        <% if (typeof(errors) !== 'undefined' ) { %>
+            <% for (const key in errors) { %>
+            <h3><%= errors[key].message %></h3>
+            <% } %>
+        <% } else { %>
+ 	 	<div>
+			<% for(const message of messages) { %>
+				<div>
+					<h3>Name: <%= message.name %></h3>
+					<h3>Message: <%= message.message %></h3>
+					<% for (const comment of message._comments) { %>
+						<h5><%="Name: " + comment.name %></h5>
+						<h5><%="Comment: " + comment.text %></h5>
+					<% } %>
+
+					<form action='/comment/<%= message._id %>' method="post">
+						Name: <input class="comment_input" type="text" name="name">
+						Comment: <textarea class="comment_text"name="comment"></textarea>
+						<input type="submit" value="Post comment">
+                    </form>
+                    <hr>
+				</div>
+			<% } %>
+		</div>
+ 	    <% } %>
+    </div>
+</body>
+</html>
