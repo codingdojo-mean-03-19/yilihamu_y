@@ -1,0 +1,39 @@
+<section>
+  <h1>Restful CRUD</h1>
+  <fieldset>
+    <legend>Create tasks</legend>
+    {{ form.value | json }}
+    <form (submit) = 'onSubmit($event, form)' (createTask)='onCreate()' #form='ngForm'>
+      <div>
+        <label for="">Title:</label>
+        <input type="text" name='title' [(ngModel)]="task.title" required>
+      </div>
+      <div>
+        <label for="">Description:</label>
+        <input type="text" name='description' [(ngModel)]="task.description" required>
+      </div>
+      <button *ngIf='form.valid'>Submit</button>
+    </form>
+  </fieldset>
+</section>
+<section>
+  <div *ngFor='let task of tasks' style="border: 1px solid black;">
+    <p>Id: {{ task.id }}</p>
+    <p>Title: {{task.title}}</p>
+    <p>Description: {{task.description}}</p>
+    <button (click)='onDelete($event, task)'>Delete</button>
+    <button (click)='onEdit($event, task)'>Edit</button>
+  </div>
+</section>
+<div *ngIf="showMe">
+  <h2>Edit task</h2>
+  {{ form.value | json }}
+  <form (submit)='onEdit()' #form='ngForm'>
+    <label for="">Title:</label>
+    <input type="text" name='title' [(ngModel)]="task.title" required>
+    <label for="">Description:</label>
+    <input type="text" name='desc' [(ngModel)]='task.description' required>
+    <button>Update task</button>
+  </form>
+</div>
+
