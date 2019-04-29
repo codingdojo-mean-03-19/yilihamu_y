@@ -1,0 +1,10 @@
+<section style="text-align: center">
+  <h2>Restful Tasks API</h2>
+  <button (click)="getTasksFromService()">Get all Tasks</button>
+  <div *ngFor="let task of tasks">
+      <p>{{ task.title }}</p>
+      <button (click)="info(task)">Show</button>
+  </div>
+</section>
+
+<app-task *ngIf='task' [task] = 'task'></app-task>
