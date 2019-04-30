@@ -1,0 +1,10 @@
+<div *ngIf="selectedCake.name != null">
+  <p>Baked by: {{selectedCake.name}}</p>
+  <img src="{{ selectedCake.url }}" alt="Cake">
+</div>
+
+<div *ngFor="let rating of selectedCake.rating">
+  <p>Rating: {{rating.rating}}</p>
+  <p>Comment: {{rating.comment}}</p>
+</div>
+

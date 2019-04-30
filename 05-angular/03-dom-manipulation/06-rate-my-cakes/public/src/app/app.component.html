@@ -1,0 +1,33 @@
+<h1 style="text-align: center;">{{title}}</h1>
+  <div>
+    <h2>Submit a Cake</h2>
+    <form (submit)="createCake()" #form='ngForm'>
+      Baker:
+      <input type="text" name="newCake.name" [(ngModel)]="newCake.name"> Image URL:
+      <input type="text" name="newCake.url" [(ngModel)]="newCake.url">
+      <input type="submit" value="Create">
+    </form>
+  </div>
+  <div *ngFor="let cake of cakes">
+      <p>Baked by: {{cake.name}}</p>
+      <img class="cake-img" src="{{cake.url}}" alt="Baked by: {{cake.name}}" (click)="showCakes(cake)">
+      <form #cakeForm='ngForm' (submit)="rateCake(cake._id, cakeForm)">
+        Select rating:
+        <select name="rating" ngModel>
+          <option selected="selected" value="5">5</option>
+          <option value="4">4</option>
+          <option value="3">3</option>
+          <option value="2">2</option>
+          <option value="1">1</option>
+        </select>
+        <br>
+        Comment:
+        <input type="text" name="comment" ngModel>
+        <br>
+        <input type="submit" value="Rate!">
+      </form>
+  </div>
+
+  <app-cake *ngIf="showCake" [selectedCake]="showCake"></app-cake>
+
+
