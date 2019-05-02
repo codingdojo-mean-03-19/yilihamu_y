@@ -1,0 +1,12 @@
+<div style="text-align:center">
+  <h1> Welcome to {{ title }}!</h1>
+  <p><a [routerLink]="['/burbank']">Burbank</a></p>
+  <p><a [routerLink]="['/chicago']">Chicago</a></p>
+  <p><a [routerLink]="['/dallas']">Dallas</a></p>
+  <p><a [routerLink]="['/dc']">Washington, D.C.</a></p>
+  <p><a [routerLink]="['/sanjose']">Sanjose</a></p>
+  <p><a [routerLink]="['/seattle']">Seattle</a></p>
+  <div style="border:1pt silver solid;">
+    <router-outlet></router-outlet>
+  </div>
+</div>
