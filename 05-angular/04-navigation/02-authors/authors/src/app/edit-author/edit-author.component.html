@@ -1,0 +1,12 @@
+<button [routerLink]="['/']">Home</button>
+<form (submit)='onUpdate($event,authorForm)' #authorForm="ngForm">
+  <label for="name">Full Name:</label>
+  <input type="text" name="name" placeholder="Enter full name" value="{{author?.name}}" [(ngModel)]="author.name" required>
+  <button type="submit">Update</button>
+</form>
+
+
+
+
+
+

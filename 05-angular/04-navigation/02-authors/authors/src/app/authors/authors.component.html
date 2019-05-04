@@ -1,0 +1,19 @@
+<button [routerLink]="['author/new']">Add author</button>
+<table>
+  <thead>
+    <tr>
+      <th>Full Name</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tr *ngFor='let author of authors' (click)='onSelect(author)' [routerLink]="['author', author._id]">
+    <td id="selecedAuthor">{{author.name}}</td>
+    <td>
+      <button [routerLink]="['author/edit', author._id]">Edit</button>
+      <button (click)='onDelete($event, author)'>Delete</button>
+    </td>
+  </tr>
+</table>
+
+
+

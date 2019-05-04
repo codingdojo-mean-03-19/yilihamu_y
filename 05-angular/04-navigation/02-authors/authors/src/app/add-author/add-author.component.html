@@ -1,0 +1,9 @@
+<button [routerLink]="['/']">Home</button>
+<form (submit)='onSubmit($event,authorForm)' #authorForm="ngForm">
+  <label for="name">Full Name:</label>
+  <input type="text" name="name" placeholder="Enter full name" [(ngModel)]='author.name' required>
+  <button type="submit" [disabled]='authorForm.invalid'>Submit</button>
+</form>
+
+
+
