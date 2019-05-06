@@ -1,0 +1,8 @@
+<div style="text-align:center; border: 2px purple solid ">
+  <h3>The reviews component has a purple border</h3>
+  <h3>it is here because/reviews uses the router outlet in the root component.</h3>
+  <button [routerLink]="['details', 37]">Go to /reviews/details/37</button>
+  <button [routerLink]="['author', 37]">Go to /reviews/author/37</button>
+  <button [routerLink]="['all', 37]">Go to /reviews/all/37</button>
+  <router-outlet></router-outlet>
+</div>
