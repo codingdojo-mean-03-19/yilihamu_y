@@ -1,0 +1,10 @@
+<form (submit)='onUpdate($event)' #form="ngForm">
+  <label for="">Title:</label>
+  <input type="text" name="name" value="{{product.name}}" [(ngModel)]="product.name" required>
+  <label for="">Price:</label>
+  <input type="text" name="price" value="{{product.price}}" [(ngModel)]="product.price" required>
+  <label for="">Image Url:</label>
+  <input type="text" name="url" value="{{product.url}}" [(ngModel)]="product.url" required>
+  <button>Update</button>
+  <button [routerLink]="['/products']">Cancel</button>
+</form>

@@ -1,0 +1,17 @@
+<section>
+  <fieldset>
+    <legend>Create Product</legend>
+    {{ form.value | json }}
+    <form (submit)='onSubmit($event, form)' #form = 'ngForm'>
+      <label for="">Title:</label>
+      <input type="text" name='name' [(ngModel)]='product.name' required>
+      <label for="">Price:</label>
+      <input type="text" name='price' [(ngModel)]='product.price' required>
+      <label for="">Product Image Url:</label>
+      <input type="text" name='url' [(ngModel)]='product.url' required>
+      <button *ngIf='form.valid'>Submit</button>
+      <button (click)='cancel()'>Cancel</button>
+    </form>
+
+  </fieldset>
+</section>

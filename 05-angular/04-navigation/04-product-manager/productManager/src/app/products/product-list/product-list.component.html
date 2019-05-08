@@ -1,0 +1,31 @@
+<section>
+    <table>
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Title</th>
+          <th>Price ($)</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          *ngFor="let product of products"
+          (click)="onSelect(product)"
+          [routerLink]="[product._id]"
+        >
+          <td><img src="{{ product.url }}" alt="img" style="height: 200px; width: 200px"></td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td>
+            <button (click)="onDelete($event, product)">Delete</button>
+            <button (click)="onUpdate($event)" [routerLink]="['/products','edit', product._id]">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+
+
