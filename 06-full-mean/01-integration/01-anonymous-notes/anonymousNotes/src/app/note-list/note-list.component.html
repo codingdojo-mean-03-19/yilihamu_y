@@ -1,0 +1,6 @@
+<div *ngFor="let note of notes" style="border: 1px yellow solid">
+  <p><small>Noted On: {{ note.createdAt | date: 'MMM d, y, h:mm:ss a' }}</small></p>
+  <p>{{ note.note }}</p>
+</div>
+
+

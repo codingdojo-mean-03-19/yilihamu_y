@@ -1,0 +1,12 @@
+<section>
+  <fieldset>
+    <legend>Create Note</legend>
+    <!-- {{ form.value | json }} -->
+    <form (submit)='onSubmit($event, form)' #form = 'ngForm'>
+      <label for="">Title:</label>
+      <input type="text" name='note' [(ngModel)]='note.note' required>
+      <button *ngIf='form.valid'>Add Note</button>
+    </form>
+
+  </fieldset>
+</section>
