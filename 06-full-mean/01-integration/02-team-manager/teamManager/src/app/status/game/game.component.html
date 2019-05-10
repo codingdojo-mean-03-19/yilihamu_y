@@ -1,0 +1,27 @@
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Player Name</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let player of players$ | async'>
+        <td>{{ player.name }}</td>
+        <td>
+          <button
+          (click)='selectStatus(player, "playing")'
+          [class.playing]='playerStatus(player) === "playing"'>Playing</button>
+          <button
+          (click)='selectStatus(player, "not playing")'
+          [class.not-playing]='playerStatus(player) === "not playing"'>Not Playing</button>
+          <button
+          (click)='selectStatus(player, "undecided")'
+          [class.undecided]='playerStatus(player) === "undecided"'>Undecided</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
